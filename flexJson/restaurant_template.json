@@ -72,7 +72,7 @@
               "contents": [
                 {
                   "type": "text",
-                  "text": "Place",
+                  "text": "Type",
                   "size": "sm",
                   "color": "#AAAAAA",
                   "flex": 1,
@@ -80,16 +80,11 @@
                 },
                 {
                   "type": "text",
-                  "text": "桃市中壢區興仁路二段67巷69號",
-                  "weight": "bold",
+                  "text": "Japanese",
                   "size": "sm",
-                  "color": "#036B85FF",
+                  "color": "#666666",
                   "flex": 5,
                   "wrap": true,
-                  "action": {
-                    "type": "uri",
-                    "uri": "https://www.google.com.tw/maps/place/桃園市中壢區興仁路二段67巷69號/"
-                  },
                   "contents": []
                 }
               ]
@@ -101,7 +96,7 @@
               "contents": [
                 {
                   "type": "text",
-                  "text": "Time",
+                  "text": "Place",
                   "size": "sm",
                   "color": "#AAAAAA",
                   "flex": 1,
@@ -109,11 +104,16 @@
                 },
                 {
                   "type": "text",
-                  "text": "10:00 - 23:00",
+                  "text": "桃園市中壢區興仁路二段67巷69號",
+                  "weight": "bold",
                   "size": "sm",
-                  "color": "#666666",
+                  "color": "#036B85FF",
                   "flex": 5,
                   "wrap": true,
+                  "action": {
+                    "type": "uri",
+                    "uri": "https://www.google.com.tw/maps/place/"
+                  },
                   "contents": []
                 }
               ]
