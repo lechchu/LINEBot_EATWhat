@@ -29,30 +29,32 @@ except Exception as e :
     print(e)
 
 def makeResFlex(resdata):
-    json = res_template
-    print(json['body']['contents'][2]['contents'][0]['contents'][1]['text']) #res name
-    return json
+    reslist = json.load(open('flexjson/restaurant_emptylist.json',"r",encoding="utf-8"))
+    for i in range(len(resdata)):
+        print(resdata.iloc[i]['name'])
+        djson = json.load(open('flexjson/restaurant_template.json',"r",encoding="utf-8"))
+
+        djson['hero']['url'] = resdata.iloc[i]['image'] #res pic url
+        djson['body']['contents'][0]['text']= resdata.iloc[i]['name'] #res name
+        djson['body']['contents'][2]['contents'][1]['contents'][1]['text'] = resdata.iloc[i]['address'] #res add
+        res_add = djson['body']['contents'][2]['contents'][1]['contents'][1]['text']
+        djson['body']['contents'][2]['contents'][1]['contents'][1]['action']['uri']+=res_add #res add uri
+        djson['body']['contents'][2]['contents'][0]['contents'][1]['text'] = resdata.iloc[i]['type'] #res type
+        reslist['contents'].append(djson)
+    
+    # print(json['body']['contents'][2]['contents'][0]['contents'][1]['text']) #res name
+    print(reslist)
+    return reslist
 
 
 def Fliter(header, text, pick_n):
     fliter = (df[header] == text)
-    print(df[fliter].sample(n=pick_n))
     return (df[fliter].sample(n=pick_n))
 
-def selfPrint(text):
-    print(text)
 
 
-# useflowFlex = json.load(open('FLEXJson/useflow_BubbleFLEX.json',"r",encoding="utf-8"))
-# fruitsFlex = json.load(open('FLEXJson/layer3_fruits.json',"r",encoding="utf-8"))
-# vegetablesFlex = json.load(open('FLEXJson/layer3_vegetables.json',"r",encoding="utf-8"))
-# grainsFlex = json.load(open('FLEXJson/layer3_grains.json',"r",encoding="utf-8"))
-# persimmonNear = json.load(open('FLEXJson/persimmonNear_FLEX.json',"r",encoding="utf-8"))
-# persimmonOnline = json.load(open('FLEXJson/persimmonOnline_FLEX.json',"r",encoding="utf-8"))
-# tomatoNear = json.load(open('FLEXJson/tomatoNear_FLEX.json',"r",encoding="utf-8"))
-# tomatoOnline = json.load(open('FLEXJson/tomatoOnline_FLEX.json',"r",encoding="utf-8"))
-# peanutNear = json.load(open('FLEXJson/peanutNear_FLEX.json',"r",encoding="utf-8"))
-# peanutOnline = json.load(open('FLEXJson/peanutOnline_FLEX.json',"r",encoding="utf-8"))
+
+
 
 @app.route("/main", methods=['POST'])
 def main():
@@ -74,30 +76,26 @@ def handle_message(event):
     if mtype == 'text':
         mtext = event.message.text
         if mtext == '@text2':
-            FLEXmessage = FlexSendMessage(alt_text="農產品選擇", contents=res_template)
+            FLEXmessage = FlexSendMessage(alt_text="test", contents=res_template)
             line_bot_api.reply_message(event.reply_token, FLEXmessage)
         elif mtext == '@幫我決定':  
-            selfPrint('aaa')
             message = TextSendMessage(text = "請選擇餐廳種類。")  
             FLEXmessage = FlexSendMessage(alt_text="餐廳種類選擇", contents=res_type)
             line_bot_api.reply_message(event.reply_token, FLEXmessage)
-        elif mtext == '正餐':
-            print('111')
-            selfPrint(mtext)
-            Fliter(header='type', text=mtext, pick_n=5)
-            # message = TextSendMessage(text = str(Fliter(header='type', text=mtext, pick_n=5)['name'][0]))
-            # FLEXmessage = FlexSendMessage(alt_text="正餐列表", contents=makeResFlex())
-            # line_bot_api.reply_message(event.reply_token, message)   
-        # elif mtext == '@早餐':
-        #     FLEXmessage = FlexSendMessage(alt_text="早餐列表", contents=makeResFlex())
-        #     line_bot_api.reply_message(event.reply_token, FLEXmessage)
-        # elif mtext == '@點心':
-        #     FLEXmessage = FlexSendMessage(alt_text="點心列表", contents=makeResFlex())
-        #     line_bot_api.reply_message(event.reply_token, FLEXmessage)
-    elif mtype=='image':
-        # message = TextSendMessage(text = '我們認為這顆芒果的等級會是: \n'+mangoLevel[random.randint(0,2)])
-        message = TextSendMessage(text = '我們認為這顆芒果的等級會是: \n'+mangoLevel[1])
-        line_bot_api.reply_message(event.reply_token, message)
+        elif mtext == '@正餐':
+            resFlex = makeResFlex(Fliter(header='type', text=mtext[1:], pick_n=3))
+            FLEXmessage = FlexSendMessage(alt_text="正餐列表", contents=resFlex)
+            line_bot_api.reply_message(event.reply_token, FLEXmessage)   
+        elif mtext == '@早餐':
+            resFlex = makeResFlex(Fliter(header='type', text=mtext[1:], pick_n=3))
+            FLEXmessage = FlexSendMessage(alt_text="早餐列表", contents=resFlex)
+            line_bot_api.reply_message(event.reply_token, FLEXmessage)   
+        elif mtext == '@點心':
+            resFlex = makeResFlex(Fliter(header='type', text=mtext[1:], pick_n=3))
+            FLEXmessage = FlexSendMessage(alt_text="點心列表", contents=resFlex)
+            line_bot_api.reply_message(event.reply_token, FLEXmessage)   
+    # elif mtype=='image':
+        # line_bot_api.reply_message(event.reply_token, message)
         
             
 if __name__ == '__main__':
