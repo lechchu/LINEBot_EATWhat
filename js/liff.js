@@ -8,23 +8,32 @@ window.addEventListener('load', () => {
   liffID = '1655563753-Yb9Vdb4a';
   triggerLIFF();
 
-  function deleteRes(resId){
-      console.log(resId);
-  }
 
-
-	AWS.config.update({
-	  region: "us-east-1",
-	  //endpoint: 'http://localhost:8000',
-	  // accessKeyId default can be used while using the downloadable version of DynamoDB. 
-	  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-	  // accessKeyId: "ASIASAILT6CMBJUQQIZC",
-	  // // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
-	  // // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-	  // secretAccessKey: "N3m54MOEtCSGD37hj0ywW/E8o1X2EoM3oZLRlWzg",
-    // sessionToken: "FwoGZXIvYXdzENb//////////wEaDIsZhJiPjmlA9zYQLSLIAUBpq1nGm7Wt5phTpbTmjKF8o3oOdSgNwCSiBoME1ysGNwfgu5jTWxzmQCSd6gRhyFI3H34dTPlqXkVZvxmFZ6fpijP3kiq2y5aPEHJ0ycl3Knpnvfr0rS5g2I89yt4RsXdpaxSVHDGhi6dZ6ZGjEFTz+hv7xQ1bQGHBH1rsBydOp7ncQvIGqKYVUDPwz0eK/MbmJ7T072HK+8XNUa/1enh6LqaaXhu+/AV5nfnEiXzHKkycJpZAwtrnUi5Jn3G+aMtKap5PiwoTKIHk6/8FMi0/827FdzXXcQYjKGn8g9MKMPVujAR4GSZlfFreOTmDI5l+Q+so8GxOYxmxzEA="
-    // 
+  AWS.config.region = "us-east-1";
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: "us-east-1:669a0e47-4c7c-4189-b276-9cc9ee7e6127",
+    // RoleArn: "arn:aws:dynamodb:us-east-1:138000199832:table/linebot_EATWhat_Users"
   });
+
+  // AWSCognito.config.region = 'us-east-1';
+  // AWSCognito.config.credentials = new AWS.CognitoIdentityCredentials({
+  //   IdentityPoolId: "us-east-1:669a0e47-4c7c-4189-b276-9cc9ee7e6127",
+  //   RoleArn: "arn:aws:dynamodb:us-east-1:138000199832:table/linebot_EATWhat_Users"
+  // });
+
+
+  // AWS.config.update({
+	//   region: "us-east-1",
+	//   // endpoint: 'http://localhost:8000',
+	//   // accessKeyId default can be used while using the downloadable version of DynamoDB. 
+	//   // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+	//   // accessKeyId: "ASIASAILT6CMBJUQQIZC",
+	//   // // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
+	//   // // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+	//   // secretAccessKey: "N3m54MOEtCSGD37hj0ywW/E8o1X2EoM3oZLRlWzg",
+  //   // sessionToken: "FwoGZXIvYXdzENb//////////wEaDIsZhJiPjmlA9zYQLSLIAUBpq1nGm7Wt5phTpbTmjKF8o3oOdSgNwCSiBoME1ysGNwfgu5jTWxzmQCSd6gRhyFI3H34dTPlqXkVZvxmFZ6fpijP3kiq2y5aPEHJ0ycl3Knpnvfr0rS5g2I89yt4RsXdpaxSVHDGhi6dZ6ZGjEFTz+hv7xQ1bQGHBH1rsBydOp7ncQvIGqKYVUDPwz0eK/MbmJ7T072HK+8XNUa/1enh6LqaaXhu+/AV5nfnEiXzHKkycJpZAwtrnUi5Jn3G+aMtKap5PiwoTKIHk6/8FMi0/827FdzXXcQYjKGn8g9MKMPVujAR4GSZlfFreOTmDI5l+Q+so8GxOYxmxzEA="
+  //   // 
+  // });
   
   var docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -43,7 +52,7 @@ window.addEventListener('load', () => {
     const qresult = new Promise((resolve, reject) => {     
       docClient.query(params, function (err, data) {
           resolve(data);
-          reject(err);
+          reject(console.log(err));
         })
       });
 
@@ -244,8 +253,16 @@ window.addEventListener('load', () => {
           userImage = profile['pictureUrl'];
           document.getElementById('profile_image').src=userImage;
           document.getElementById('userName').textContent=userName;
-          queryData(userId);
-          
+
+          queryData(userId).catch(error => {
+            // console.log(error);
+            let error_message = document.createElement("h1");
+            error_message.innerHTML ="無法從伺服器取得資料"
+            document.getElementById('res_list_block').appendChild(error_message);
+            console.log(error);
+          });;
+
+
         })
     
       }
