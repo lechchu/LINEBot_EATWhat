@@ -18,12 +18,13 @@ window.addEventListener('load', () => {
 	  //endpoint: 'http://localhost:8000',
 	  // accessKeyId default can be used while using the downloadable version of DynamoDB. 
 	  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-	  accessKeyId: "ASIASAILT6CMBJUQQIZC",
-	  // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
-	  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-	  secretAccessKey: "N3m54MOEtCSGD37hj0ywW/E8o1X2EoM3oZLRlWzg",
-    sessionToken: "FwoGZXIvYXdzENb//////////wEaDIsZhJiPjmlA9zYQLSLIAUBpq1nGm7Wt5phTpbTmjKF8o3oOdSgNwCSiBoME1ysGNwfgu5jTWxzmQCSd6gRhyFI3H34dTPlqXkVZvxmFZ6fpijP3kiq2y5aPEHJ0ycl3Knpnvfr0rS5g2I89yt4RsXdpaxSVHDGhi6dZ6ZGjEFTz+hv7xQ1bQGHBH1rsBydOp7ncQvIGqKYVUDPwz0eK/MbmJ7T072HK+8XNUa/1enh6LqaaXhu+/AV5nfnEiXzHKkycJpZAwtrnUi5Jn3G+aMtKap5PiwoTKIHk6/8FMi0/827FdzXXcQYjKGn8g9MKMPVujAR4GSZlfFreOTmDI5l+Q+so8GxOYxmxzEA="
-    });
+	  // accessKeyId: "ASIASAILT6CMBJUQQIZC",
+	  // // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
+	  // // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+	  // secretAccessKey: "N3m54MOEtCSGD37hj0ywW/E8o1X2EoM3oZLRlWzg",
+    // sessionToken: "FwoGZXIvYXdzENb//////////wEaDIsZhJiPjmlA9zYQLSLIAUBpq1nGm7Wt5phTpbTmjKF8o3oOdSgNwCSiBoME1ysGNwfgu5jTWxzmQCSd6gRhyFI3H34dTPlqXkVZvxmFZ6fpijP3kiq2y5aPEHJ0ycl3Knpnvfr0rS5g2I89yt4RsXdpaxSVHDGhi6dZ6ZGjEFTz+hv7xQ1bQGHBH1rsBydOp7ncQvIGqKYVUDPwz0eK/MbmJ7T072HK+8XNUa/1enh6LqaaXhu+/AV5nfnEiXzHKkycJpZAwtrnUi5Jn3G+aMtKap5PiwoTKIHk6/8FMi0/827FdzXXcQYjKGn8g9MKMPVujAR4GSZlfFreOTmDI5l+Q+so8GxOYxmxzEA="
+    // 
+  });
   
   var docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -149,20 +150,28 @@ window.addEventListener('load', () => {
             return;
           }
 
-          let res_template = document.getElementById('res_temp');
-          let nodeFather = res_template.parentNode;
-          let node_clone = res_template.cloneNode();
+          let res_block = document.getElementById('res_list_block');
+          // let nodeFather = res_template.parentNode;
+          // let node_clone = res_template.cloneNode();
 
           let image = document.createElement("img");
           let name = document.createElement("h4");
-          let address = document.createElement("span");
+          let address = document.createElement("p");
           let btn = document.createElement("button");
-          let icon = document.createElement("i");
+          let cbody = document.createElement("div");
+          let chead = document.createElement("div");
+          let card = document.createElement("div");
+
+          // let icon = document.createElement("i");
 
 　　　　   name.innerHTML = res.resName;
           address.innerHTML = res.resAddress+'<br>';
 
-          // icon.setAttribute("class", "fa fa-trash-o fa-lg");
+          cbody.setAttribute("class", "card-body");
+          chead.setAttribute("class", "card-header");
+          card.setAttribute("class", "card");
+
+          
 
           btn.setAttribute("type", "button");
           btn.setAttribute("class", "btn btn-danger");
@@ -178,14 +187,18 @@ window.addEventListener('load', () => {
             }
           });
 
-          image.setAttribute("class", "fa fa-wrench");
+          image.setAttribute("class", "img-thumbnail img-fluid");
           image.src = res.resImage;
-          node_clone.appendChild(image);
-          node_clone.appendChild(name);
-          node_clone.appendChild(address);
-          node_clone.appendChild(btn);
 
-          nodeFather.appendChild(node_clone);
+          chead.appendChild(image);
+          cbody.appendChild(name);
+          cbody.appendChild(address);
+          cbody.appendChild(btn);
+          // cbody.append(node_clone);
+          card.appendChild(chead);
+          card.appendChild(cbody);
+
+          res_block.appendChild(card);
 
         });
       }
