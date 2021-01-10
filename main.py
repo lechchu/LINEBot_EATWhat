@@ -1,7 +1,7 @@
 import json
 import random
 # from database import RestaurantData
-from resdataprocess import RestaurantData
+from getResdata import RestaurantData
 from flask import Flask
 app = Flask(__name__)
 from pathlib import Path
