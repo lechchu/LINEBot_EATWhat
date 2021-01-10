@@ -1,11 +1,16 @@
 document.write('<script src="https://sdk.amazonaws.com/js/aws-sdk-2.824.0.min.js"></script>');
 window.addEventListener('load', () => {
 
-  let liffID, qresult;
+  let liffID, reslist = new Array();
+  let userId;
   let a;
 
   liffID = '1655563753-Yb9Vdb4a';
   triggerLIFF();
+
+  function deleteRes(resId){
+      console.log(resId);
+  }
 
 
 	AWS.config.update({
@@ -13,12 +18,12 @@ window.addEventListener('load', () => {
 	  //endpoint: 'http://localhost:8000',
 	  // accessKeyId default can be used while using the downloadable version of DynamoDB. 
 	  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-	  accessKeyId: "ASIASAILT6CMIE3Z5UDR",
+	  accessKeyId: "ASIASAILT6CMBJUQQIZC",
 	  // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
 	  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-	  secretAccessKey: "BLdkUBf2xudKPJG35TNrHrA+6gqPLSgPWmxyQfy2",
-    sessionToken: "FwoGZXIvYXdzENP//////////wEaDB6muXZ0vYSCYBNZ2SLIARNpXruQ5kUtk6wqhqzkZ/2f4wC1swwGZT5Ihdr9S+v+w8dECU0CvIWxYcUBic6QeBgSYV6clHtXaX12O439z239E5wlMtlNpvHmi2Gp/fpdKrRyd3C4b2cHQGvPFRAZuyiCoqN2EI0rkPW5sRvolYWsNvI+QA99Y/cGYs1wVcwX88Wl66g3ShQLshaLrOJEMJKrni/6EnKo47YUYp3UP/k9PTviY5WNQ1wpeHah+hm07Q5c9HQuJIXEm3K/oqJSMAq3cQdK6FpqKI2W6/8FMi3LSgxEW32ALweiSQBbawaAxPUZaS4jWVWfksb+N7BDDbCRRuaLRz88mrD4G2k="
-  });
+	  secretAccessKey: "N3m54MOEtCSGD37hj0ywW/E8o1X2EoM3oZLRlWzg",
+    sessionToken: "FwoGZXIvYXdzENb//////////wEaDIsZhJiPjmlA9zYQLSLIAUBpq1nGm7Wt5phTpbTmjKF8o3oOdSgNwCSiBoME1ysGNwfgu5jTWxzmQCSd6gRhyFI3H34dTPlqXkVZvxmFZ6fpijP3kiq2y5aPEHJ0ycl3Knpnvfr0rS5g2I89yt4RsXdpaxSVHDGhi6dZ6ZGjEFTz+hv7xQ1bQGHBH1rsBydOp7ncQvIGqKYVUDPwz0eK/MbmJ7T072HK+8XNUa/1enh6LqaaXhu+/AV5nfnEiXzHKkycJpZAwtrnUi5Jn3G+aMtKap5PiwoTKIHk6/8FMi0/827FdzXXcQYjKGn8g9MKMPVujAR4GSZlfFreOTmDI5l+Q+so8GxOYxmxzEA="
+    });
   
   var docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -34,21 +39,23 @@ window.addEventListener('load', () => {
       }
     };
 	
-    const result = new Promise((resolve, reject) => {     
+    const qresult = new Promise((resolve, reject) => {     
       docClient.query(params, function (err, data) {
           resolve(data);
           reject(err);
         })
       });
-    let a = await result;
-    result.then(() => {
-      console.log(result);
-    })
-    console.log(a['Count'])
-    if(a['Count'] === 0){
+
+    result = await qresult;
+    if(await result['Count'] === 0){
       initData(keyword);
+      return;
     }
-    const qcount = result['Count'];
+    reslist = result['Items'][0]['resList'];
+    console.log(reslist);
+    // console.log(result['Items']);
+
+    loadResList();
 
   }
 
@@ -93,12 +100,37 @@ window.addEventListener('load', () => {
         console.log("Unable to add item: " + "\n" + JSON.stringify(err, undefined, 2));
       } else {
           console.log("PutItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2));
+          queryData(userId);
       }
     });
   }
 
-  async function loadResList(){
+  function updateUserResList(userId, newlist){
 
+    var params = {
+        TableName:"linebot_EATWhat_Users",
+        Key:{
+            "userId": userId
+        },
+        UpdateExpression: "set resList = :nrl",
+        ExpressionAttributeValues:{
+            ":nrl":newlist,
+
+        },
+        ReturnValues:"UPDATED_NEW"
+    };
+
+    docClient.update(params, function(err, data) {
+        if (err) {
+            console.log("Unable to update item: " + "\n" + JSON.stringify(err, undefined, 2));
+        } else {
+            console.log("UpdateItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2));
+        }
+    });
+  }
+
+  async function loadResList(){
+    
     var params = {
       TableName: "linebot_EATWhat_DB",
     };
@@ -111,31 +143,45 @@ window.addEventListener('load', () => {
         // Print all the movies
         console.log("Scan succeeded. " + "\n");
         data.Items.forEach(function(res) {
+
+          // console.log(reslist.includes(parseInt(res.resID)));
+          if(!reslist.includes(parseInt(res.resID))){
+            return;
+          }
+
           let res_template = document.getElementById('res_temp');
           let nodeFather = res_template.parentNode;
           let node_clone = res_template.cloneNode();
-          // content = res_template.innerHTML;
-          // console.log(content.childElementCount);
           let image = document.createElement("img");
-          let icon = document.createElement("span");
           let name = document.createElement("h5");
           let address = document.createElement("span");
-          icon.setAttribute("class", "fa fa-wrench");
+          let btn = document.createElement("input");
+
 　　　　   name.innerHTML = res.resName;
           address.innerHTML = res.resAddress;
+
+          btn.setAttribute("type", "button");
+          btn.setAttribute("id", res.resID);
+          // btn.setAttribute("onClick", "deleteRes(this.id)");
+          btn.setAttribute("value", "delete");
+          btn.addEventListener('click', () => {
+            if(confirm('確定刪除 %s？', res.Name)){
+              reslist.splice(reslist.indexOf(parseInt(res.resID)), 1);
+              updateUserResList(userId, reslist);
+              location.reload()
+            // console.log(reslist);
+            }
+          });
 
           image.setAttribute("class", "fa fa-wrench");
           image.src = res.resImage;
           node_clone.appendChild(image);
-          // node_clone.appendChild(icon);
           node_clone.appendChild(name);
           node_clone.appendChild(address);
-          // node_clone.childNodes[0][0][1].textContent = res.resName;
-          // node_clone.childNodes[0][0][2].textContent = res.resAddress;
-          // node_clone.removeAttribute('id');
-          // node_clone.innerHTML = content;
+          node_clone.appendChild(btn);
+
           nodeFather.appendChild(node_clone);
-            // document.getElementById('textarea').innerHTML += movie.year + ": " + movie.title + " - rating: " + movie.info.rating + "\n";
+
         });
       }
       })
@@ -144,10 +190,8 @@ window.addEventListener('load', () => {
   }
 
   // queryData("1");
-  console.log(getResCount());
-  // let count = await getResCount();
-  // console.log(count);
-  // 執行範例裡的所有功能
+  // console.log(getResCount());
+
   function triggerLIFF() {
 
 
@@ -158,7 +202,7 @@ window.addEventListener('load', () => {
       
       // 取得基本環境資訊
       // 參考：https://engineering.linecorp.com/zh-hant/blog/liff-our-latest-product-for-third-party-developers-ch/
-      let language, version, isInClient, isLoggedIn, os, lineVersion, userId, userName, userImage, user_profile;
+      let language, version, isInClient, isLoggedIn, os, lineVersion, userName, userImage, user_profile;
 
       language = liff.getLanguage(); // String。引用 LIFF SDK 的頁面，頁面中的 lang 值
       version = liff.getVersion(); // String。LIFF SDK 的版本
@@ -182,7 +226,8 @@ window.addEventListener('load', () => {
           userImage = profile['pictureUrl'];
           document.getElementById('profile_image').src=userImage;
           document.getElementById('userName').textContent=userName;
-          loadResList();
+          queryData(userId);
+          
         })
     
       }
@@ -203,10 +248,6 @@ window.addEventListener('load', () => {
       //       queryData(userId);
         
       // });
-
-
-
-
 
       // 關閉 LIFF
       // const btnClose = document.getElementById('closeLIFF');
