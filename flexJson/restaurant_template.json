@@ -1,147 +1,125 @@
 {
-    "type": "bubble",
-    "hero": {
-      "type": "image",
-      "url": "https://pic.pimg.tw/eva6955/1558443107-3775745461_n.jpg",
-      "size": "full",
-      "aspectRatio": "20:13",
-      "aspectMode": "cover"
-    },
-    "body": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "咾窩",
-          "weight": "bold",
-          "size": "xl",
-          "contents": []
-        },
-        {
-          "type": "box",
-          "layout": "baseline",
-          "margin": "md",
-          "contents": [
-            {
-              "type": "icon",
-              "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
-              "size": "sm"
-            },
-            {
-              "type": "icon",
-              "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
-              "size": "sm"
-            },
-            {
-              "type": "icon",
-              "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
-              "size": "sm"
-            },
-            {
-              "type": "icon",
-              "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
-              "size": "sm"
-            },
-            {
-              "type": "icon",
-              "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png",
-              "size": "sm"
-            },
-            {
-              "type": "text",
-              "text": "4.0",
-              "size": "sm",
-              "color": "#999999",
-              "flex": 0,
-              "margin": "md",
-              "contents": []
-            }
-          ]
-        },
-        {
-          "type": "box",
-          "layout": "vertical",
-          "spacing": "sm",
-          "margin": "lg",
-          "contents": [
-            {
-              "type": "box",
-              "layout": "baseline",
-              "spacing": "sm",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": "Type",
-                  "size": "sm",
-                  "color": "#AAAAAA",
-                  "flex": 1,
-                  "contents": []
-                },
-                {
-                  "type": "text",
-                  "text": "Japanese",
-                  "size": "sm",
-                  "color": "#666666",
-                  "flex": 5,
-                  "wrap": true,
-                  "contents": []
-                }
-              ]
-            },
-            {
-              "type": "box",
-              "layout": "baseline",
-              "spacing": "sm",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": "Place",
-                  "size": "sm",
-                  "color": "#AAAAAA",
-                  "flex": 1,
-                  "contents": []
-                },
-                {
-                  "type": "text",
-                  "text": "桃園市中壢區興仁路二段67巷69號",
-                  "weight": "bold",
-                  "size": "sm",
-                  "color": "#036B85FF",
-                  "flex": 5,
-                  "wrap": true,
-                  "action": {
-                    "type": "uri",
-                    "uri": "https://www.google.com.tw/maps/place/"
-                  },
-                  "contents": []
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    "footer": {
-      "type": "box",
-      "layout": "vertical",
-      "flex": 0,
-      "spacing": "sm",
-      "contents": [
-        {
-          "type": "button",
-          "action": {
-            "type": "uri",
-            "label": "MORE",
-            "uri": "https://eva6955.pixnet.net/blog/post/5770528"
+  "type": "bubble",
+  "hero": {
+    "type": "image",
+    "url": "https://pic.pimg.tw/eva6955/1558443107-3775745461_n.jpg",
+    "size": "full",
+    "aspectRatio": "20:13",
+    "aspectMode": "cover"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "咾窩",
+        "weight": "bold",
+        "size": "xl",
+        "contents": []
+      },
+      {
+        "type": "box",
+        "layout": "baseline",
+        "margin": "md",
+        "contents": [
+          {
+            "type": "icon",
+            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
+            "size": "sm"
           },
-          "height": "sm",
-          "style": "link"
-        },
-        {
-          "type": "spacer",
-          "size": "sm"
-        }
-      ]
-    }
+          {
+            "type": "icon",
+            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
+            "size": "sm"
+          },
+          {
+            "type": "icon",
+            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
+            "size": "sm"
+          },
+          {
+            "type": "icon",
+            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
+            "size": "sm"
+          },
+          {
+            "type": "icon",
+            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png",
+            "size": "sm"
+          },
+          {
+            "type": "text",
+            "text": "4.0",
+            "size": "sm",
+            "color": "#999999",
+            "flex": 0,
+            "margin": "md",
+            "contents": []
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "margin": "lg",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "baseline",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "Type",
+                "size": "sm",
+                "color": "#AAAAAA",
+                "flex": 1,
+                "contents": []
+              },
+              {
+                "type": "text",
+                "text": "Japanese",
+                "size": "sm",
+                "color": "#666666",
+                "flex": 5,
+                "wrap": true,
+                "contents": []
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "Place",
+                "size": "sm",
+                "color": "#AAAAAA",
+                "flex": 1,
+                "contents": []
+              },
+              {
+                "type": "text",
+                "text": "桃園市中壢區興仁路二段67巷69號",
+                "weight": "bold",
+                "size": "sm",
+                "color": "#036B85FF",
+                "flex": 5,
+                "wrap": true,
+                "action": {
+                  "type": "uri",
+                  "uri": "https://www.google.com.tw/maps/place/桃園市中壢區興仁路二段67巷69號/"
+                },
+                "contents": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
+}

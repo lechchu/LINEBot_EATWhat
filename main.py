@@ -14,10 +14,7 @@ from linebot.models import *
 line_bot_api = LineBotApi('jvCTs7FaFprc2fcx6T7ISlu0l91s5pjP4HoR74B73bqjNqCICAM3PZTknhPNsIXjd0k0QdsT+yzql/M0LBZJKoW/nG62d3VkSOq0Z59UzVqyS+Yyr5tYJXiMDYFueicCGF1cm+IsqFpMb5YcT9kAdQdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('d5660aa241d5041e268c14cf6d8b0fb4')
 
-# res_template = json.load(open('flexjson/restaurant_template.json',"r",encoding="utf-8"))
-# res_type = json.load(open('flexjson/restaurant_type.json',"r",encoding="utf-8"))
-
-
+eatwhatkeyword = ['吃甚麼', '吃啥', '吃什麼']
 
 try:
     resData = RestaurantData()
@@ -38,7 +35,6 @@ def main():
         abort(400)
     return 'OK'
 
-eatwhatkeyword = ['吃甚麼', '吃啥', '吃什麼']
 
 @handler.add(MessageEvent)
 def handle_message(event):

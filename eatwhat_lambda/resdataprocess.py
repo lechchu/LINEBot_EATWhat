@@ -34,6 +34,7 @@ class RestaurantData:
 
     def getFlexByFilter(self, keyword, userid, header='resType'):
 
+        #make the restuarant list in system same to user's
         self.updateUserResList(userid)
         temp = []
         for res in self.res_list:
@@ -43,10 +44,14 @@ class RestaurantData:
         count = 3
         if len(temp)<3:
             count = len(temp)
+
+        #random get 3 or less restaurant being Flex Message  
         return self.makeResFlex(random.sample(temp, count))
 
 
     def updateUserResList(self, userId):
+
+        #get user's own restaurant list
         self.user_reslist = self.usertable.query(
         KeyConditionExpression=Key('userId').eq(userId)
         )
