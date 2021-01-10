@@ -38,19 +38,20 @@ def main():
         abort(400)
     return 'OK'
 
+eatwhatkeyword = ['吃甚麼', '吃啥', '吃什麼']
 
 @handler.add(MessageEvent)
 def handle_message(event):
 
     mtype = event.message.type
+    print(event.type)
     if mtype == 'text':
         mtext = event.message.text
-        userid = json.loads(str(event.source))[str(event.source.type)+'Id']
 
         if mtext == '@text':
             # message = TextSendMessage(text='aa')
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text = str(event)))
-        elif mtext == '@幫我決定':  
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text = str(event.type)))
+        elif mtext == '@幫我決定' or mtext in eatwhatkeyword:  
             message = TextSendMessage(text = "請選擇餐廳種類。")  
             FLEXmessage = FlexSendMessage(alt_text="餐廳種類選擇", contents=resData.res_type)
             line_bot_api.reply_message(event.reply_token, FLEXmessage)

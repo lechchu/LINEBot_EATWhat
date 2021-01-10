@@ -1,83 +1,83 @@
 {
-    "type": "carousel",
-    "contents": [
-      {
-        "type": "bubble",
-        "direction": "ltr",
-        "hero": {
-          "type": "image",
-          "url": "https://i.imgur.com/uZz2BE2.jpg",
-          "size": "full",
-          "aspectRatio": "1.2:1",
-          "aspectMode": "fit"
-        },
-        "footer": {
-          "type": "box",
-          "layout": "horizontal",
-          "contents": [
-            {
-              "type": "button",
-              "action": {
-                "type": "message",
-                "label": "正餐",
-                "text": "@正餐"
-              },
-              "color": "#D99661FF"
-            }
-          ]
-        }
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "direction": "ltr",
+      "hero": {
+        "type": "image",
+        "url": "https://i.imgur.com/uZz2BE2.jpg",
+        "size": "full",
+        "aspectRatio": "1.2:1",
+        "aspectMode": "fit"
       },
-      {
-        "type": "bubble",
-        "direction": "ltr",
-        "hero": {
-          "type": "image",
-          "url": "https://i.imgur.com/TvdSk5U.jpg",
-          "size": "full",
-          "aspectRatio": "1.2:1",
-          "aspectMode": "cover"
-        },
-        "footer": {
-          "type": "box",
-          "layout": "horizontal",
-          "contents": [
-            {
-              "type": "button",
-              "action": {
-                "type": "message",
-                "label": "早餐",
-                "text": "@早餐"
-              },
-              "color": "#ADE782FF"
-            }
-          ]
-        }
-      },
-      {
-        "type": "bubble",
-        "direction": "ltr",
-        "hero": {
-          "type": "image",
-          "url": "https://i.imgur.com/WziF4U4.jpg",
-          "size": "full",
-          "aspectRatio": "1.2:1",
-          "aspectMode": "cover"
-        },
-        "footer": {
-          "type": "box",
-          "layout": "horizontal",
-          "contents": [
-            {
-              "type": "button",
-              "action": {
-                "type": "message",
-                "label": "點心",
-                "text": "@點心"
-              },
-              "color": "#F0ED5BFF"
-            }
-          ]
-        }
+      "footer": {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "正餐",
+              "text": "@正餐"
+            },
+            "color": "#D99661FF"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "type": "bubble",
+      "direction": "ltr",
+      "hero": {
+        "type": "image",
+        "url": "https://i.imgur.com/TvdSk5U.jpg",
+        "size": "full",
+        "aspectRatio": "1.2:1",
+        "aspectMode": "cover"
+      },
+      "footer": {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "早餐",
+              "text": "@早餐"
+            },
+            "color": "#ADE782FF"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bubble",
+      "direction": "ltr",
+      "hero": {
+        "type": "image",
+        "url": "https://i.imgur.com/WziF4U4.jpg",
+        "size": "full",
+        "aspectRatio": "1.2:1",
+        "aspectMode": "cover"
+      },
+      "footer": {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "點心",
+              "text": "@點心"
+            },
+            "color": "#F8F149"
+          }
+        ]
+      }
+    }
+  ]
+}
