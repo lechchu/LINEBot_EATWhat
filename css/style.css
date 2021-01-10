@@ -391,7 +391,7 @@
 
 /* Button */
 
-	input[type="submit"],
+	/* input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
 	.button {
@@ -438,7 +438,7 @@
 		input[type="button"].small,
 		.button.small {
 			font-size: 0.8em;
-		}
+		} */
 
 /* Wrapper */
 

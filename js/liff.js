@@ -152,20 +152,25 @@ window.addEventListener('load', () => {
           let res_template = document.getElementById('res_temp');
           let nodeFather = res_template.parentNode;
           let node_clone = res_template.cloneNode();
+
           let image = document.createElement("img");
-          let name = document.createElement("h5");
+          let name = document.createElement("h4");
           let address = document.createElement("span");
-          let btn = document.createElement("input");
+          let btn = document.createElement("button");
+          let icon = document.createElement("i");
 
 　　　　   name.innerHTML = res.resName;
-          address.innerHTML = res.resAddress;
+          address.innerHTML = res.resAddress+'<br>';
+
+          // icon.setAttribute("class", "fa fa-trash-o fa-lg");
 
           btn.setAttribute("type", "button");
+          btn.setAttribute("class", "btn btn-danger");
           btn.setAttribute("id", res.resID);
-          // btn.setAttribute("onClick", "deleteRes(this.id)");
-          btn.setAttribute("value", "delete");
+          // btn.setAttribute("value", "delete");
+          btn.innerHTML = "delete";
           btn.addEventListener('click', () => {
-            if(confirm('確定刪除 %s？', res.Name)){
+            if(confirm('確定刪除'+ res.resName+ ' ?')){
               reslist.splice(reslist.indexOf(parseInt(res.resID)), 1);
               updateUserResList(userId, reslist);
               location.reload()
