@@ -94,7 +94,7 @@ window.addEventListener('load', () => {
   }
 
   function updateUserResList(userId, newlist){
-
+    alert('準備做資料庫更新1')
     var params = {
         TableName:"linebot_EATWhat_Users",
         Key:{
@@ -107,14 +107,14 @@ window.addEventListener('load', () => {
         },
         ReturnValues:"UPDATED_NEW"
     };
-
+    alert('準備做資料庫更新2')
     docClient.update(params, function(err, data) {
         if (err) {
             console.log("Unable to update item: " + "\n" + JSON.stringify(err, undefined, 2));
-            alert(JSON.stringify(err, undefined, 2));
+            // alert(JSON.stringify(err, undefined, 2));
         } else {
             console.log("UpdateItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2));
-            alert(JSON.stringify(data, undefined, 2));
+            // alert(JSON.stringify(data, undefined, 2));
         }
     });
   }
