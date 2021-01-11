@@ -187,6 +187,8 @@ window.addEventListener('load', () => {
           res_block.appendChild(card);
 
         });
+        let loadgif = document.getElementById('laoding_img');
+        loadgif.parentNode.removeChild(loadgif);
       }
       })
 
