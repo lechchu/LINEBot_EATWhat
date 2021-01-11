@@ -94,7 +94,7 @@ window.addEventListener('load', () => {
   }
 
   function updateUserResList(userId, newlist){
-    alert('準備做資料庫更新1')
+
     var params = {
         TableName:"linebot_EATWhat_Users",
         Key:{
@@ -107,7 +107,7 @@ window.addEventListener('load', () => {
         },
         ReturnValues:"UPDATED_NEW"
     };
-    alert('準備做資料庫更新2')
+    try{
     docClient.update(params, function(err, data) {
         if (err) {
             console.log("Unable to update item: " + "\n" + JSON.stringify(err, undefined, 2));
@@ -117,6 +117,9 @@ window.addEventListener('load', () => {
             // alert(JSON.stringify(data, undefined, 2));
         }
     });
+  }catch(e){
+    alert(e);
+  }
   }
 
   async function loadResList(){
@@ -167,8 +170,8 @@ window.addEventListener('load', () => {
           btn.addEventListener('click', () => {
             if(confirm('確定刪除'+ res.resName+ ' ?')){
               reslist.splice(reslist.indexOf(parseInt(res.resID)), 1);
-              updateUserResList(userId, reslist);
-              location.reload()
+              await updateUserResList(userId, reslist);
+              location.reload();
             // console.log(reslist);
             }
           });
