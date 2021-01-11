@@ -21,6 +21,11 @@ try:
 except Exception as e :
     print(e)
 
+def isKeyword(text):
+    for key in eatwhatkeyword:
+        if key in text:
+            return True
+    return False
 
 
 @app.route("/main", methods=['POST'])
@@ -40,15 +45,16 @@ def main():
 def handle_message(event):
 
     mtype = event.message.type
-    print(event.type)
+    userid = json.loads(str(event.source))[str(event.source.type)+'Id']
+    
     if mtype == 'text':
-        userid = json.loads(str(event.source))[str(event.source.type)+'Id']
+        
         mtext = event.message.text
 
         if mtext == '@text':
             # message = TextSendMessage(text='aa')
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text = str(event.type)))
-        elif mtext == '@幫我決定' or mtext in eatwhatkeyword:  
+        elif mtext == '@幫我決定' or isKeyword(mtext):  
             message = TextSendMessage(text = "請選擇餐廳種類。")  
             FLEXmessage = FlexSendMessage(alt_text="餐廳種類選擇", contents=resData.res_type)
             line_bot_api.reply_message(event.reply_token, FLEXmessage)
@@ -57,7 +63,16 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, FLEXmessage)
     # elif mtype=='image':
         # line_bot_api.reply_message(event.reply_token, message)
-        
-            
+
+@handler.add(JoinEvent)
+def handle_join(event):
+    gourpid = json.loads(str(event.source))[str(event.source.type)+'Id']
+    resData.updateUserResList(gourpid)
+
+@handler.add(FollowEvent)
+def handle_follow(event):
+    userid = json.loads(str(event.source))[str(event.source.type)+'Id']
+    resData.updateUserResList(userid)
+
 if __name__ == '__main__':
     app.run(debug=True)
