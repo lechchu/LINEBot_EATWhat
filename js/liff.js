@@ -114,6 +114,7 @@ window.addEventListener('load', () => {
             alert(JSON.stringify(err, undefined, 2));
         } else {
             console.log("UpdateItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2));
+            alert(JSON.stringify(data, undefined, 2));
         }
     });
   }
