@@ -234,10 +234,7 @@ window.addEventListener('load', () => {
             document.getElementById('res_list_block').appendChild(error_message);
             console.log(error);
           });;
-
-
-        })
-    
+        })  
       }
 
 
