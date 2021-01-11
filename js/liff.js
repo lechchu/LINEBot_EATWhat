@@ -170,7 +170,7 @@ window.addEventListener('load', () => {
           btn.addEventListener('click', () => {
             if(confirm('確定刪除'+ res.resName+ ' ?')){
               reslist.splice(reslist.indexOf(parseInt(res.resID)), 1);
-              await updateUserResList(userId, reslist);
+              updateUserResList(userId, reslist);
               location.reload();
             // console.log(reslist);
             }
