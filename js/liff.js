@@ -111,6 +111,7 @@ window.addEventListener('load', () => {
     docClient.update(params, function(err, data) {
         if (err) {
             console.log("Unable to update item: " + "\n" + JSON.stringify(err, undefined, 2));
+            alert(JSON.stringify(err, undefined, 2));
         } else {
             console.log("UpdateItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2));
         }
@@ -156,9 +157,7 @@ window.addEventListener('load', () => {
           cbody.setAttribute("class", "card-body");
           chead.setAttribute("class", "card-header");
           card.setAttribute("class", "card");
-
           
-
           btn.setAttribute("type", "button");
           btn.setAttribute("class", "btn btn-danger");
           btn.setAttribute("id", res.resID);
