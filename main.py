@@ -42,6 +42,7 @@ def handle_message(event):
     mtype = event.message.type
     print(event.type)
     if mtype == 'text':
+        userid = json.loads(str(event.source))[str(event.source.type)+'Id']
         mtext = event.message.text
 
         if mtext == '@text':
@@ -52,7 +53,6 @@ def handle_message(event):
             FLEXmessage = FlexSendMessage(alt_text="餐廳種類選擇", contents=resData.res_type)
             line_bot_api.reply_message(event.reply_token, FLEXmessage)
         elif mtext == '@正餐':
-            # resFlex = makeResFlex(Fliter(header='type', text=mtext[1:], pick_n=3))
             FLEXmessage = FlexSendMessage(alt_text="正餐列表", contents=resData.getFlexByFilter(mtext[1:], userid))
             line_bot_api.reply_message(event.reply_token, FLEXmessage)
     # elif mtype=='image':

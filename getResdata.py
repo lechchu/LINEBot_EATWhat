@@ -1,6 +1,7 @@
 import boto3
 import json
 import random
+import urllib
 # from pandas import DataFrame
 from boto3.dynamodb.conditions import Key, Attr
 
@@ -8,7 +9,7 @@ class RestaurantData:
 
 
     def databaseConnect(self):       
-        self.dynamodb = boto3.resource('dynamodb', region_name="us-east-1", aws_access_key_id='ASIASAILT6CMMIJPYN7T', aws_secret_access_key='Q4I/makAw7vVWKutjLRGF6FIRHfjApFePn4SJ5v3', aws_session_token='FwoGZXIvYXdzENz//////////wEaDD68UDM63DYrW6eRISLIAdA9GLe4ZnT/Gk727qUjXij8ROQyjw66FHXsSrPRwrheBiDdgiMm/jhBSSyXTLu8R52pwT/zl07rfjjnzsdj02Znw6gTHffcQxRiueSk2fiZdf7z03+XqO6kasR9NR+/55JH4EyX0PcZHQFOiZ3yOkQIG+oIVVviF4HMZvYQnI9HhHeNExrI+4b7aD4dAeBBxyrPr7PET2L5vuqZB5GCa2HlP5DujP3ZdAKgkwPN0C+v0ejAfLAg2dG00E9iIG3UYMcAYi7uSezPKIyY7f8FMi0sLLUZExdaOq7pB9r3cddYdfGXXT1wa158yIrsdTq31QnMV/Lr2bRwSr5G/UU=')
+        self.dynamodb = boto3.resource('dynamodb', region_name="us-east-1", aws_access_key_id='ASIASAILT6CMECQJ5WGV', aws_secret_access_key='OS0Luqzi91ZGBGYK+eNSgxY/KAgA0pDlM7btphqr', aws_session_token='FwoGZXIvYXdzEOb//////////wEaDHsIdqpG4sZpsUzHeiLIAXkNQb5tyP5RPTVh2b9/y8W+7rLtGtj1bxMVB8DMXOra9MOI97dfCZE2lPU+ibkuyRhzDscYsqNPsYd6zq0Bq3vGOJwxKlZf83LNDH9NKlghdF+a7s6a+WD25ouvwI16aGUQiIO6p7V1sFhuo+lSnPh3TbXs1GqUFe1FoIpYnWs4LQznlkrR+N4qXSmtqpYouTp56Oy/qGocfKASNkupckfNqngvNmualLWGn+slYmwK2nXtF1ipn3wDWOC8CsTID97DjGhzO8nMKNm27/8FMi2144nLcGjm0pyH8k+x4a7nxcetpFtaBzHxeEmAd89wVWac9E0YM6cTNhYQXIo=')
         self.restable = self.dynamodb.Table('linebot_EATWhat_DB')
         self.usertable = self.dynamodb.Table('linebot_EATWhat_Users')
 
@@ -22,7 +23,8 @@ class RestaurantData:
             json_temp['body']['contents'][0]['text']= resdata['resName'] #res name
             json_temp['body']['contents'][2]['contents'][1]['contents'][1]['text'] = resdata['resAddress'] #res add
             res_add = json_temp['body']['contents'][2]['contents'][1]['contents'][1]['text']
-            json_temp['body']['contents'][2]['contents'][1]['contents'][1]['action']['uri']+=res_add #res add uri
+            json_temp['body']['contents'][2]['contents'][1]['contents'][1]['action']['uri']+=urllib.parse.quote(res_add) #res add uri
+            print(json_temp['body']['contents'][2]['contents'][1]['contents'][1]['action']['uri'])
             json_temp['body']['contents'][2]['contents'][0]['contents'][1]['text'] = resdata['resType'] #res type      
 
             reslist['contents'].append(json_temp)

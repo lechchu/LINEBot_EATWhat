@@ -112,7 +112,7 @@
                 "wrap": true,
                 "action": {
                   "type": "uri",
-                  "uri": "https://www.google.com.tw/maps/place/桃園市中壢區興仁路二段67巷69號/"
+                  "uri": "https://www.google.com.tw/maps/place/"
                 },
                 "contents": []
               }
