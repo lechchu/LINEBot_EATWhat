@@ -1,7 +1,6 @@
 import json
 import random
-# from database import RestaurantData
-from getResdata import RestaurantData
+from eatwhat_backend import RestaurantData
 from flask import Flask
 app = Flask(__name__)
 from pathlib import Path
