@@ -10,7 +10,7 @@ from linebot.models import (
 import json
 import logging
 import os
-from resdataprocess import RestaurantData
+from eatwhat_backend import RestaurantData
 
 logger = logging.getLogger()
 logger.setLevel(logging.ERROR)
